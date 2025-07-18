@@ -5,7 +5,7 @@
  */
 
 
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, StyleSheet } from "react-native";
 import { useState, useEffect } from 'react';
 
 /**
@@ -18,17 +18,73 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
 
     if (currentAmount <= totalAmount) {
         return (
+            <View style={styles.container}>
+                <Text style={styles.text}>
+                    ${currentAmount} out of ${totalAmount} goal reached
+                </Text>
 
+            <View style={styles.progressBackground}>
+            <View
+                style={[
+                styles.progressFill,
+                { width: `${(currentAmount / totalAmount) * 100}%` },
+                ]}
+            />
+            </View>
+
+            <View style={styles.buttonContainer}>
+            <Button
+                title="Donate"
+                onPress={() => {}}
+                color="#00AEEF"
+            />
+            </View>
+        </View>
+        );
+    }
+    }
+
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    borderColor: '#00AEEF',
+    borderRadius: 8,
+    padding: 12,
+    margin: 16,
+    backgroundColor: '#fff',
+  },
+  text: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  progressBackground: {
+    width: '100%',
+    height: 20,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginBottom: 12,
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#00AEEF',
+  },
+  buttonContainer: {
+    alignItems: 'flex-start',
+  },
+});
+/**
             <View
                 style={{ // the UI is currently only intended for vertical phones, change as needed in future
-                    position: 'absolute',
-                    height: 125,
-                    borderRadius: 15,
-                    borderWidth: 3,
-                    width: '80%',
-                    justifyContent: "center",
-                    alignItems: "center",
-
+                    padding: 16,
+                    backgroundColor: '#F5F5F5',
+                    borderRadius: 12,
+                    width: '100%',
+                    marginTop: 16,
+                    shadowColor: '#000',
+                    shadowOpacity: 0.1,
+                    shadowRadius: 4,
+                    elevation: 2,
                 }}
             >
 
@@ -38,7 +94,7 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
                         gap: 5
                     }}>
 
-                    <Text style={{ width: '50%' }} >
+                    <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 12 }} >
                         {"$" + currentAmount + " out of $" + totalAmount + " goal reached"}
                     </Text>
 
@@ -53,9 +109,14 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
 
                 <View  // the background 
                     style={{
-                        width: '90%', height: 20,
-                        borderWidth: 3,
-                        borderRadius: 15
+                        width: '100%',
+                        height: 20,
+                        borderWidth: 1,
+                        borderColor: '#ccc',
+                        borderRadius: 10,
+                        backgroundColor: '#e0e0e0',
+                        overflow: 'hidden',
+                        marginBottom: 16,
                     }}>
 
                     <View  // the progress bar itself
@@ -63,10 +124,17 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
                             width: `${(currentAmount / totalAmount) * 100}%`, height: '100%',
                             backgroundColor: 'rgba(107, 167, 197, 1)',
                             borderRadius: 15,
-                            position: 'absolute'
                         }}>
                     </View>
-
+                    
+                    <View style={{ alignItems: 'center' }}>
+                        <Button
+                            title="Donate"
+                            onPress={() => {
+                            }}
+                            color="#00AEEF"
+                        />
+                    </View>
                 </View>
 
 
@@ -76,5 +144,6 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
         );
     }
 
-
+ 
 }
+*/
