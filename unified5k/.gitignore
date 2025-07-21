@@ -39,3 +39,6 @@ yarn-error.*
 app-example
 
 .vscode/*
+
+GoogleService-Info.plist
+google-services.json
