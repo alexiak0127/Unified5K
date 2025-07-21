@@ -9,7 +9,7 @@ export type BlogPostCardProps = {
     title: string
 }
 export function BlogPostCard({ url, image, title }: BlogPostCardProps) {
-    return <View style={{ alignSelf: "baseline", flexDirection: "column", gap: 8, backgroundColor: "#FFFFFF" }}>
+    return <View style={{ alignSelf: "baseline", flexDirection: "column", gap: 8, backgroundColor: "transparent" }}>
         <Text variant="displaySmall" style={{ marginLeft: 8 }}>{title}</Text>
         <ExternalLink href={url as ExternalPathString}><Image style={{
             borderRadius: 8, height: 180, width: 325
