@@ -38,9 +38,16 @@ yarn-error.*
 
 app-example
 
+# vscode settings
 **/.vscode/
 
+# native builds
+android/*
+ios/*
 
-
+# service accounts
 GoogleService-Info.plist
 google-services.json
+
+# error files
+replay_*
