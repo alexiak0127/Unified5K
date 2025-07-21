@@ -17,22 +17,18 @@ export default function RootLayout() {
   //   // Async font loading only occurs in development.
   //   return null;
   // }
-
-  const theme = colorScheme === "dark" ? {
-    ...MD3DarkTheme,
-    dark: true,
-    colors: {
-      ...MD3DarkTheme.colors,
-      primary: "#1BA8D8"
-    }
-  } : {
+  console.log(colorScheme === "dark")
+  console.log(MD3DarkTheme.colors)
+  const theme = {
     ...MD3LightTheme,
-    dark: true,
+    dark: false,
     colors: {
       ...MD3LightTheme.colors,
       primary: "#1BA8D8"
     }
   }
+
+  console.log("colorScheme = " + colorScheme)
   return (
     // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
     <PaperProvider theme={theme}>
