@@ -4,10 +4,33 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import CollapsibleSection from '../components/profile/CollapsibleSection';
 import Header from '../components/Header';
+import * as ImagePicker from 'expo-image-picker';
+
 
 export default function ProfileScreen() {
 
     const [selectedTab, setSelectedTab] = useState<'Participant' | 'Volunteer' | 'Organization'>('Organization');
+    const [imageUri, setImageUri] = useState<string | null>(null);
+
+     const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert('Permission to access media library is required!');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
 
 
     return (
@@ -18,13 +41,21 @@ export default function ProfileScreen() {
             {/* Profile Row (image + name/email/badge) */}
             <View style={styles.profileRow}>
                 <View style={styles.profileImageWrapper}>
-                    <Image
-                        source={require('../assets/images/profile-placeholder.jpg')}
-                        style={styles.profileImage}
-                    />
-                    <View style={styles.editIcon}>
-                        <Text style={styles.editText}>✎</Text>
-                    </View>
+                   <TouchableOpacity onPress={pickImage}>
+                        <View style={styles.profileImageWrapper}>
+                            <Image
+                                source={
+                                    imageUri
+                                        ? { uri: imageUri }
+                                        : require('../assets/images/profile-placeholder.jpg')
+                                }
+                                style={styles.profileImage}
+                            />
+                            <View style={styles.editIcon}>
+                                <Text style={styles.editText}>✎</Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.profileInfo}>
