@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react';
  * 
  * @returns ImageCarousel UI Element
  */
-export default function ImageCarousel(imageResponse: string[]) {
+export default function ImageCarousel({imageResponse}: {imageResponse: string[]}) {
 
     const [index, setIndex] = useState(0); // on change of index, a different image will appear 
 

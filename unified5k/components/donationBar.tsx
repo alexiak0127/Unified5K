@@ -7,6 +7,7 @@
 
 import { Button, Text, View } from "react-native";
 import { useState, useEffect } from 'react';
+import {useFonts} from 'expo-font';
 
 /**
  * 
@@ -14,14 +15,21 @@ import { useState, useEffect } from 'react';
  * 
  * @returns Donation Bar UI Element
  */
-export default function DonationBar(currentAmount: number, totalAmount: number) {
+export default function DonationBar({currentAmount, totalAmount}: {currentAmount: number, totalAmount: number}) {
+
+    const [fontsLoaded] = useFonts({
+        "Poppins": require('../assets/fonts/Poppins-Regular.ttf'),
+        "Poppins-Bold": require('../assets/fonts/Poppins-SemiBold.ttf'),
+       "Poppins-SemiBold": require('../assets/fonts/Poppins-SemiBold.ttf'),
+    });
+
 
     if (currentAmount <= totalAmount) {
         return (
 
             <View
                 style={{ // the UI is currently only intended for vertical phones, change as needed in future
-                    position: 'absolute',
+                    position: 'relative',
                     height: 125,
                     borderRadius: 15,
                     borderWidth: 3,
@@ -38,7 +46,7 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
                         gap: 5
                     }}>
 
-                    <Text style={{ width: '50%' }} >
+                    <Text style={{ width: '50%', fontFamily: 'Poppins' }} >
                         {"$" + currentAmount + " out of $" + totalAmount + " goal reached"}
                     </Text>
 
@@ -75,6 +83,4 @@ export default function DonationBar(currentAmount: number, totalAmount: number) 
             </View>
         );
     }
-
-
 }
