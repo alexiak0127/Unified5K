@@ -9,7 +9,9 @@ export default function Index() {
       <Text className="text-xl font-bold text-blue-500">
         Welcome to Nativewind!
       </Text>
+
       <Link href="/profile">Go to Profile</Link>
+
     </View>
     
   );
