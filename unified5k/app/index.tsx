@@ -5,14 +5,12 @@ import Descriptor from "@/components/descriptor";
 import ImageCarousel  from "@/components/imageCarousel"
 import DonationBar from "@/components/donationBar";
 
-
+import { Text, View } from "react-native";
+import { Link } from 'expo-router';
 import "./global.css"
 
 
 export default function Index() {
-
-
-
   return (
     <View className="flex-col items-center space-y-5 justify-center bg-white">      
         <Image
@@ -51,13 +49,6 @@ export default function Index() {
               onPress={() => {}}
               color="#00AEEF"
           />
-        </View>
-          
-
-   
-
-
-    </View>
-    
+      </View>  
   );
 }
