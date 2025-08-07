@@ -1,50 +1,157 @@
-import { Button, Text, View, Image } from "react-native";
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, } from 'react-native';
+import FilterTabs from '../components/FilterTabs';
+import Header from '../components/Header';
+import HeroSection from '../components/HeroSection';
+import RaceCard from '../components/RaceCard';
+import SearchBar from '../components/SearchBar';
 
-import Descriptor from "@/components/descriptor";
-import ImageCarousel from "@/components/imageCarousel";
-import DonationBar from "@/components/donationBar";
-
-import { Link } from 'expo-router';
-import "./global.css";
-
-export default function Index() {
-  return (
-    <View className="flex-col items-center space-y-5 justify-center bg-white">
-      <Image
-        source={require('@/assets/images/unified-5k-logo.png')}
-        style={{ width: 200, height: 200 }}
-      />
-      <ImageCarousel imageResponse={
-        ["https://picsum.photos/id/1011/500/300",
-          "https://picsum.photos/id/1025/500/300"]
-      } />
-
-      <Descriptor
-        date="October 1, 2023"
-        location="Boston, MA"
-        time="10:00 AM - 2:00 PM" />
-
-      <DonationBar currentAmount={5000} totalAmount={10000} />
-
-      <Button
-        title="Become a Sponsor/Vendor"
-        onPress={() => { }}
-        color="#00AEEF"
-      />
-
-      <View className="absolute flex-row bottom-5 space-x-5 items-center justify-center ">
-        <Button
-          title="Participate"
-          onPress={() => { }}
-          color="#00AEEF"
-        />
-        <Button
-          title="Volunteer"
-          onPress={() => { }}
-          color="#00AEEF"
-        />
-      </View>
-
-    </View>
-  );
+interface Race {
+  id: number;
+  raceName: string;
+  location: string;
+  imageSource: { uri: string };
+  raceDate?: string;
+  isNotificationEnabled?: boolean;
 }
+
+interface ActiveFilters {
+  live: boolean;
+  past: boolean;
+  upcoming: boolean;
+}
+
+const IndexScreen: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
+    live: true,
+    past: true,
+    upcoming: true,
+  });
+
+  const [notificationStates, setNotificationStates] = useState<{[key: number]: boolean}>({});
+
+  const mockRaces: Race[] = [
+    {
+      id: 1,
+      raceName: "Boston Marathon",
+      location: "Boston, MA",
+      imageSource: require('../assets/images/raceimage1.jpg'),
+      raceDate: "12/03",
+      isNotificationEnabled: false,
+    },
+    {
+      id: 2,
+      raceName: "NYC Inclusive 5K",
+      location: "New York, NY",
+      imageSource: require('../assets/images/raceimage3.jpg'),
+      raceDate: "12/03",
+      isNotificationEnabled: false,
+    },
+    {
+      id: 3,
+      raceName: "Chicago Run",
+      location: "Chicago, IL",
+      imageSource: require('../assets/images/raceimage4.jpg'),
+      raceDate: "12/03",
+      isNotificationEnabled: false,
+    },
+  ];
+
+  const filteredRaces = mockRaces.filter((race) => {
+    // If no search query, show all races
+    if (!searchQuery.trim()) return true;
+    
+    // Search in race name and location
+    const query = searchQuery.toLowerCase().trim();
+    const raceName = race.raceName.toLowerCase();
+    const location = race.location.toLowerCase();
+    
+    return raceName.includes(query) || location.includes(query);
+  });
+
+  const handleSearch = (query: string): void => {
+    setSearchQuery(query);
+  };
+
+  const handleFilterChange = (filters: ActiveFilters): void => {
+    setActiveFilters(filters);
+  };
+
+  const handleRacePress = (raceId: number): void => {
+    console.log(`Navigate to race details: ${raceId}`);
+  };
+
+  const handleNotificationPress = (raceId: number): void => {
+    console.log(`Toggle notification for race: ${raceId}`);
+    
+    setNotificationStates(prev => ({
+      ...prev,
+      [raceId]: !prev[raceId]
+    }));
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      
+      <ScrollView 
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
+        <Header />
+        
+        <HeroSection />
+        
+        <View style={styles.contentContainer}>
+          <SearchBar
+            value={searchQuery}
+            onSearch={handleSearch}
+            placeholder="Find a Race"
+          />
+          
+          <FilterTabs
+            activeFilters={activeFilters}
+            onFilterChange={handleFilterChange}
+          />
+          
+          <View style={styles.raceList}>
+            {filteredRaces.map((race) => (
+              <RaceCard
+                key={race.id}
+                raceName={race.raceName}
+                location={race.location}
+                imageSource={race.imageSource}
+                raceDate={race.raceDate}
+                isNotificationEnabled={notificationStates[race.id] || false}
+                onPress={() => handleRacePress(race.id)}
+                onNotificationPress={() => handleNotificationPress(race.id)}
+              />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  
+  scrollView: {
+    flex: 1,
+  },
+  
+  contentContainer: {
+    paddingBottom: 20,
+  },
+  
+  raceList: {
+    marginTop: 20,
+  },
+});
+
+export default IndexScreen;

@@ -9,6 +9,7 @@ interface RaceCardProps {
   location?: string;
   imageSource?: ImageSourcePropType | null;
   raceDate?: string;
+  isNotificationEnabled?: boolean;
   onPress?: () => void;
   onNotificationPress?: () => void;
 }
@@ -18,6 +19,7 @@ const RaceCard: React.FC<RaceCardProps> = ({
   location = "Location", 
   imageSource = null,
   raceDate = null,
+  isNotificationEnabled = false,
   onPress,
   onNotificationPress 
 }) => {
@@ -34,10 +36,14 @@ const RaceCard: React.FC<RaceCardProps> = ({
         </View>
         
         <TouchableOpacity 
-          style={styles.notificationButton}
-          onPress={onNotificationPress}
+            style={styles.notificationButton}
+            onPress={onNotificationPress}
         >
-          <Ionicons name="notifications-outline" size={24} color="#4A90E2" />
+            <Ionicons 
+            name={isNotificationEnabled ? "notifications" : "notifications-outline"} 
+            size={24} 
+            color="#4A90E2" 
+        />
         </TouchableOpacity>
       </View>
 
