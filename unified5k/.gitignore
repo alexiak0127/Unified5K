@@ -45,9 +45,5 @@ app-example
 android/*
 ios/*
 
-# service accounts
-GoogleService-Info.plist
-google-services.json
-
 # error files
 replay_*
