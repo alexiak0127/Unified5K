@@ -1,7 +1,6 @@
-import { ExternalPathString } from "expo-router"
+import { Link } from "expo-router"
 import { Image, View, ViewProps } from "react-native"
 import { Button, Text } from "react-native-paper"
-import { ExternalLink } from "./ExternalLink"
 export type ArticleCardProps = ViewProps & {
     title: string,
     url: string,
@@ -19,8 +18,8 @@ export function ArticleCard({ title, url, image, text, style, ...rest }: Article
             uri: image
         }} />
         <Text style={{ fontWeight: "400", fontSize: 20, marginBottom: 16, marginLeft: 8 }}>{text}</Text>
-        <ExternalLink href={url as ExternalPathString} asChild>
+        <Link href={url} asChild>
             <Button buttonColor="rgba(0, 174, 236, 0.2)" style={{ alignSelf: "baseline", borderRadius: 15 }}><Text style={{ fontSize: 16 }}>Read More</Text></Button>
-        </ExternalLink>
+        </Link>
     </View>
 }
