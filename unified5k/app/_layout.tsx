@@ -13,7 +13,7 @@ export default function RootLayout() {
           tabBarStyle: {
             backgroundColor: '#fff',
             borderTopColor: '#eee',
-            height: 65,
+            height: 70,
           },
           tabBarLabelStyle: {
             fontSize: 12,
@@ -43,7 +43,10 @@ export default function RootLayout() {
         <Tabs.Screen name="index" options={{ title: 'Home' }} />
         <Tabs.Screen name="donation" options={{ title: 'Donation' }} />
         <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
+      {/* // remove this after fixing the folder structure */}
+        <Tabs.Screen name="race_details" options={{ href: null }} />
       </Tabs>
     </PaperProvider>
+
   );
 }
