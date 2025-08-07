@@ -7,6 +7,7 @@
 
 import { Button, Text, View, StyleSheet } from "react-native";
 import { useState, useEffect } from 'react';
+import {useFonts} from 'expo-font';
 
 /**
  * 
@@ -14,7 +15,14 @@ import { useState, useEffect } from 'react';
  * 
  * @returns Donation Bar UI Element
  */
-export default function DonationBar(currentAmount: number, totalAmount: number) {
+export default function DonationBar({currentAmount, totalAmount}: {currentAmount: number, totalAmount: number}) {
+
+    const [fontsLoaded] = useFonts({
+        "Poppins": require('../assets/fonts/Poppins-Regular.ttf'),
+        "Poppins-Bold": require('../assets/fonts/Poppins-SemiBold.ttf'),
+       "Poppins-SemiBold": require('../assets/fonts/Poppins-SemiBold.ttf'),
+    });
+
 
     if (currentAmount <= totalAmount) {
         return (
