@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 export default function Header() {
     return (
@@ -13,16 +13,16 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'flex-start',
-        paddingHorizontal: 0,
-        paddingTop: 0,
-        marginBottom: 16,
-        backgroundColor: '#fff', // optional: set background if needed
-    },
-    logo: {
-        width: 100,
-        height: 40,
-        resizeMode: 'contain',
-    },
+  container: {
+    alignItems: 'flex-start',
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginBottom: 0,
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 180,
+    height: 60,
+    resizeMode: 'contain',
+  },
 });
