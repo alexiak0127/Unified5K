@@ -1,4 +1,4 @@
-import { Link } from "expo-router"
+import { ExternalPathString, Link } from "expo-router"
 import { Image, View, ViewProps } from "react-native"
 import { Button, Text } from "react-native-paper"
 export type ArticleCardProps = ViewProps & {
@@ -18,7 +18,7 @@ export function ArticleCard({ title, url, image, text, style, ...rest }: Article
             uri: image
         }} />
         <Text style={{ fontWeight: "400", fontSize: 20, marginBottom: 16, marginLeft: 8 }}>{text}</Text>
-        <Link href={url} asChild>
+        <Link href={url as ExternalPathString} asChild>
             <Button buttonColor="rgba(0, 174, 236, 0.2)" style={{ alignSelf: "baseline", borderRadius: 15 }}><Text style={{ fontSize: 16 }}>Read More</Text></Button>
         </Link>
     </View>
