@@ -1,15 +1,46 @@
-import { Stack } from "expo-router";
+import { Tabs } from "expo-router";
+import { Ionicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import './global.css';
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen 
-        name="index" 
-        options={{ 
-          headerShown: false 
-        }} 
-      />
-    </Stack>
+    <Tabs
+      screenOptions={({ route }) => ({
+        tabBarActiveTintColor: '#009EE2',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          borderTopColor: '#eee',
+          height: 65,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginBottom: 4,
+        },
+        tabBarIcon: ({ color, size }) => {
+          switch (route.name) {
+            case 'media':
+              return <FontAwesome5 name="globe" size={size} color={color} />;
+            case 'resources':
+              return <MaterialIcons name="folder" size={size} color={color} />;
+            case 'index':
+              return <Ionicons name="home-outline" size={size} color={color} />;
+            case 'donation':
+              return <Ionicons name="heart-outline" size={size} color={color} />;
+            case 'profile':
+              return <Ionicons name="person-outline" size={size} color={color} />;
+            default:
+              return null;
+          }
+        },
+        headerShown: false,
+      })}
+    >
+      <Tabs.Screen name="media" options={{ title: 'Media' }} />
+      <Tabs.Screen name="resources" options={{ title: 'Resources' }} />
+      <Tabs.Screen name="index" options={{ title: 'Home' }} />
+      <Tabs.Screen name="donation" options={{ title: 'Donation' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
+    </Tabs>
   );
 }
