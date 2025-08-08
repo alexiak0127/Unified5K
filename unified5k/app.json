@@ -1,7 +1,6 @@
 {
   "expo": {
     "name": "unified5k",
-    "main": "app/index.tsx",
     "slug": "unified5k",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,14 +9,18 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.adaptx.unified5k"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "googleServicesFile": "./google-services.json",
+      "edgeToEdgeEnabled": true,
+      "package": "com.adaptx.unified5k"
     },
     "web": {
       "bundler": "metro",
@@ -35,10 +38,26 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "07392021-0dbd-462b-8b25-518d398b9f51"
+      }
     }
   }
 }
