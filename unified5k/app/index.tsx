@@ -11,14 +11,13 @@ import "./global.css"
 
 export default function Index() {
 
-
-
   return (
     <View className="flex-col items-center space-y-5 justify-center bg-white">      
         <Image
           source={require('@/assets/images/unified-5k-logo.png')}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 200, height: 100 }}
         />
+        
         <ImageCarousel imageResponse={
           ["https://picsum.photos/id/1011/500/300", 
           "https://picsum.photos/id/1025/500/300"]
@@ -52,11 +51,6 @@ export default function Index() {
               color="#00AEEF"
           />
         </View>
-          
-
-   
-
-
     </View>
     
   );

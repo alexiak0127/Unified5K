@@ -29,7 +29,6 @@ export default function ImageCarousel({imageResponse}: {imageResponse: string[]}
 
     const [index, setIndex] = useState(0); // on change of index, a different image will appear 
 
-
     return (
         <View
             style={{ // the UI is currently only intended for vertical phones, change as needed in future
@@ -79,9 +78,7 @@ export default function ImageCarousel({imageResponse}: {imageResponse: string[]}
                 >
                     <Text style={{ fontSize: 20 }}> {" > "} </Text>
                 </Pressable>
-
-
-
+                
             </View>
         </View>
     );

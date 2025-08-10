@@ -4,24 +4,25 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+
 const Descriptor = ({ date, location, time }: { date: string; location: string; time: string }) => (
-  <View style={styles.container}>
-    <View style={styles.row}>
+  <View className="border border-[#00AEEF] rounded-lg p-3 m-4 bg-white">
+    <View className={tailwindStyles.row}>
       <Ionicons name="calendar" size={18} color="#00AEEF" />
-      <Text style={styles.label}> Date: </Text>
+      <Text className={tailwindStyles.label}> Date: </Text>
       <Text>{date}</Text>
     </View>
-    <View style={styles.row}>
+    <View className={tailwindStyles.row}>
       <Ionicons name="location" size={18} color="#00AEEF" />
-      <Text style={styles.label}> Location: </Text>
+      <Text className={tailwindStyles.label}> Location: </Text>
       <Text>{location}</Text>
     </View>
-    <View style={styles.row}>
+    <View className={tailwindStyles.row}>
       <Ionicons name="time" size={18} color="#00AEEF" />
-      <Text style={styles.label}> Time: </Text>
+      <Text className={tailwindStyles.label}> Time: </Text>
       <Text>{time}</Text>
     </View>
   </View>
@@ -29,23 +30,8 @@ const Descriptor = ({ date, location, time }: { date: string; location: string; 
 
 export default Descriptor;
 
-const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderColor: '#00AEEF',
-    borderRadius: 8,
-    padding: 12,
-    margin: 16,
-    backgroundColor: '#fff',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 8,
-    flexWrap: 'wrap',
-  },
-  label: {
-    fontWeight: 'bold',
-    marginLeft: 6,
-  },
-});
+const tailwindStyles = {
+  container: "border border-[#00AEEF] rounded-lg p-3 m-4 bg-white",
+  row: "flex-row items-start mb-2",
+  label: 'font-bold ml-2',
+}

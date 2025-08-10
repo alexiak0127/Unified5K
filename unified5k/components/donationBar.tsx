@@ -6,81 +6,37 @@
 
 
 import { Button, Text, View } from "react-native";
-import { useState, useEffect } from 'react';
 import {useFonts} from 'expo-font';
+// import { fontsLoaded } from "@/src/constants"; 
 
 /**
- * 
  * @param currentAmount and totalAmount
- * 
  * @returns Donation Bar UI Element
  */
 export default function DonationBar({currentAmount, totalAmount}: {currentAmount: number, totalAmount: number}) {
 
-    const [fontsLoaded] = useFonts({
-        "Poppins": require('../assets/fonts/Poppins-Regular.ttf'),
-        "Poppins-Bold": require('../assets/fonts/Poppins-SemiBold.ttf'),
-       "Poppins-SemiBold": require('../assets/fonts/Poppins-SemiBold.ttf'),
-    });
 
+    
+  if (currentAmount <= totalAmount) {
+    const progress = (currentAmount / totalAmount) * 100;
 
-    if (currentAmount <= totalAmount) {
-        return (
+    return (
+      <View className="border border-[#00AEEF] rounded-lg p-3 m-4 bg-white">
+        <Text className="font-poppins-medium mb-2">
+          ${currentAmount} out of ${totalAmount} goal reached
+        </Text>
 
-            <View
-                style={{ // the UI is currently only intended for vertical phones, change as needed in future
-                    position: 'relative',
-                    height: 125,
-                    borderRadius: 15,
-                    borderWidth: 3,
-                    width: '80%',
-                    justifyContent: "center",
-                    alignItems: "center",
+        <View className="w-full h-5 bg-gray-300 rounded-full overflow-hidden mb-3">
+          <View
+            className="h-full bg-[#00AEEF]"
+            style={{ width: `${progress}%` }}
+          />
+        </View>
 
-                }}
-            >
-
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        gap: 5
-                    }}>
-
-                    <Text style={{ width: '50%', fontFamily: 'Poppins' }} >
-                        {"$" + currentAmount + " out of $" + totalAmount + " goal reached"}
-                    </Text>
-
-                    <Button // change in future to use Pressable if needed... not much customization options
-                        title="Donate"
-                        onPress={() => {}} // lambda function such that it will go to donate page
-                    />
-                </View>
-
-
-
-
-                <View  // the background 
-                    style={{
-                        width: '90%', height: 20,
-                        borderWidth: 3,
-                        borderRadius: 15
-                    }}>
-
-                    <View  // the progress bar itself
-                        style={{
-                            width: `${(currentAmount / totalAmount) * 100}%`, height: '100%',
-                            backgroundColor: 'rgba(107, 167, 197, 1)',
-                            borderRadius: 15,
-                            position: 'absolute'
-                        }}>
-                    </View>
-
-                </View>
-
-
-
-
-            </View>
-        );
-    }
+        <View className="items-start">
+          <Button title="Donate" onPress={() => {}} color="#00AEEF" />
+        </View>
+      </View>
+    );
+  }
 }
