@@ -5,7 +5,8 @@ import Descriptor from "@/components/descriptor";
 import ImageCarousel  from "@/components/imageCarousel"
 import DonationBar from "@/components/donationBar";
 
-
+import { Text, View } from "react-native";
+import { Link } from 'expo-router';
 import "./global.css"
 
 
