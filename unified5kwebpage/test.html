@@ -1,0 +1,290 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    function retrieveData() {
+      fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRDurwUQzV4WCn17OXtdeR6lBRjyCWZgl0c9TKQ31y0HlVmLJ7DCLJaaXxHm3-BbO5XTsmQKrKuMqst/pub?gid=481278558&single=true&output=tsv")
+        .then(response => response.text())
+        .then(csv => {
+          const rows = csv.split("\n").map(row => row.split("\t"));
+          rows.shift(); // Remove header row if present
+
+          const container = document.getElementById("sheet-data");
+          rows.forEach(row => {
+            // row is an array
+
+            var coordinateString = row[16];  // coordinates extracted 
+            const coordinates = coordinateString.split(",")
+            if (coordinates.length == 2) {
+              console.log(coordinates);
+              var marker = L.marker([Number(coordinates[0]), Number(coordinates[1])]).addTo(map);
+
+
+              marker.on('click', function() {
+                openModal(row);
+              });
+            }
+            // console.log(row);
+          });
+        });
+    }
+    // Initialize Leaflet map
+    var map = L.map('map').setView([58.91156679504102, -40.63489228164174], 3);
+    
+    // Add OpenStreetMap tiles (Change in the future...)
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {
+      minZoom: 1,
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>'
+    }).addTo(map);
+
+    retrieveData();
+  </script>
+
+
+  <div class="modal-overlay hide">
+      
+      <div class="modal-wrapper">
+          <div class="close-btn-wrapper">
+       
+              <div id="top-banner">
+                <div id ="full-name"></div>
+
+                <div id="icon-wrapper">
+                  <button class = "share-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                      <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
+                    </svg>
+                  </button>
+                <button class = "close-modal-btn" aria-label="Close">
+                  <svg width="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M18 6 L6 18 M6 6 L18 18" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                </div>
+               
+              </div>
+          </div>
+          <div class="modal-content" id ="modal-content"> </div>
+
+         
+
+      </div>
+      <script>
+        const modal = document.querySelector(".modal-overlay");
+        const closeBtn = document.querySelector(".close-modal-btn");
+
+
+        function returnImageUrl(rawURL) {
+          var fileExtension = rawURL.split('.').pop().toLowerCase(); // get the file extension
+
+          console.log(rawURL);
+          if (fileExtension === "heic") { // in the future... add support for heic images (if you can)
+            return "https://dashboard.communitybox.co/img/uploaded/undefined.jpeg";
+          }
+          else if(fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png" ||  fileExtension === "webp") {
+            return rawURL;
+          }
+          else {
+            return "https://dashboard.communitybox.co/img/uploaded/undefined.jpeg";
+          }
+        }
+
+      
+
+        function openModal(row) {
+
+
+            document.getElementById("full-name").innerHTML = `${row[2]} ${row[8]}`;
+            document.getElementById("modal-content").innerHTML = `
+              <img id="profile-image" src=${returnImageUrl(row[11])} alt="Image" />
+                <h1>${row[5]}</h1>
+             
+                 <div>
+                <div class="info-label">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"  fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.427 14.768 17.2 13.542a1.733 1.733 0 0 0-2.45 0l-.613.613a1.732 1.732 0 0 1-2.45 0l-1.838-1.84a1.735 1.735 0 0 1 0-2.452l.612-.613a1.735 1.735 0 0 0 0-2.452L9.237 5.572a1.6 1.6 0 0 0-2.45 0c-3.223 3.2-1.702 6.896 1.519 10.117 3.22 3.221 6.914 4.745 10.12 1.535a1.601 1.601 0 0 0 0-2.456Z"/>
+  </svg>
+                  <p>
+                    ${row[3]} 
+                  </p>
+                </div>
+
+                <div class="info-label">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                  </svg>
+                  <p> ${row[4]} </p>
+                </div>
+
+
+                <div class="info-label">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+                  </svg>
+                  <p> ${row[7]} </p>
+                </div>
+
+                <div class="info-label">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
+                  </svg>
+                  <p> ${row[6]} </p>
+                </div>
+          </div>
+
+                <p>${row[1]}</p>
+            `;
+
+            modal.classList.remove("hide");
+        }
+
+        
+        function closeModal(e, clickedOutside) {
+            if (clickedOutside) {
+                if (e.target.classList.contains("modal-overlay"))
+                    modal.classList.add("hide");
+            } else modal.classList.add("hide");
+        }
+
+        modal.addEventListener("click", (e) => closeModal(e, true));
+        closeBtn.addEventListener("click", closeModal);
+      </script>
+  </div>
+
+</body>
+
+</html>
+
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Inter:opsz@14..32&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+</style>
+
+<style>
+  .modal-overlay {
+      background: rgba(0, 0, 0, 0.7);
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+  }
+
+  #top-banner {
+    color: white;
+    display: flex;
+    background: rgb(83, 147, 225);
+    align-items: center;
+    padding-left: 10px;
+    width: 100%;
+    height: 50px;
+  }
+
+  .modal-wrapper {
+      width: auto;
+      background: ghostwhite;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 5px;
+      overflow: hidden;
+  }
+
+  .share-btn {
+      color:white;
+      border: none;
+      background: transparent;
+      aspect-ratio: 1;
+  }
+
+  #icon-wrapper {
+      display: flex;   
+      margin-left: auto;
+  }
+
+  .close-modal-btn {
+      color:white;
+      border: none;
+      background: transparent;
+      font-size: 32px;
+  }
+
+  #full-name {
+    font-family: 'Afacad';
+  }
+
+  .close-btn-wrapper {
+      display: flex;
+  }
+
+  .modal-content {
+      height: 350px;
+      display: flex;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 20px;
+  }
+
+  .hide {
+      display: none;
+  }
+
+  #profile-image {
+      width: 50%;
+      aspect-ratio: 1;
+      height: auto;
+      object-fit: cover;
+      border-radius: 100%;
+  }
+
+  h1 {
+      text-align: center;
+      font-family: 'Afacad';
+      color:rgb(83, 147, 225)
+  }
+
+  #map {
+    height: 500px;
+    width: 65%;
+    margin: 0 auto;
+  }
+
+  .info-label {
+    display: flex;
+    /* align-items: stretch; */
+  }
+
+  p {
+    font-family: 'Nunito';
+  }
+
+</style>
