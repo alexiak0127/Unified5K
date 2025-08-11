@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   
   title: {
+    fontFamily: 'Poppins-Semibold',
     fontSize: 42,
     fontWeight: 'bold',
     color: '#FFFFFF',
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
   },
   
   subtitle: {
+    fontFamily: "Poppins-Regular",
     fontSize: 28,
     fontWeight: '600',
     color: '#FFFFFF',

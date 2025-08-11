@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, } from 'react-native';
+import { useRouter } from 'expo-router';
+
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text } from 'react-native';
 import FilterTabs from '../components/FilterTabs';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
@@ -14,6 +16,7 @@ interface Race {
   raceDate?: string;
   isNotificationEnabled?: boolean;
 }
+// for race details, we need to pass a date, location, and time
 
 interface ActiveFilters {
   live: boolean;
@@ -22,6 +25,9 @@ interface ActiveFilters {
 }
 
 const IndexScreen: React.FC = () => {
+
+  const router = useRouter();
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
     live: true,
@@ -79,7 +85,17 @@ const IndexScreen: React.FC = () => {
   };
 
   const handleRacePress = (raceId: number): void => {
-    console.log(`Navigate to race details: ${raceId}`);
+
+
+
+    router.push(
+      {pathname: "/race_details",
+      params: { 
+        date: mockRaces[raceId-1].raceDate,
+        location: mockRaces[raceId-1].location,
+       }
+    })
+    console.log(`Navigate to race details: ${raceId}, ${mockRaces[raceId-1].raceDate}`);
   };
 
   const handleNotificationPress = (raceId: number): void => {
@@ -100,7 +116,6 @@ const IndexScreen: React.FC = () => {
         showsVerticalScrollIndicator={false}
       >
         <Header />
-        
         <HeroSection />
         
         <View style={styles.contentContainer}>

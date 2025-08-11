@@ -10,17 +10,17 @@ import { Ionicons } from '@expo/vector-icons';
 const Descriptor = ({ date, location, time }: { date: string; location: string; time: string }) => (
   <View style={styles.container}>
     <View style={styles.row}>
-      <Ionicons name="calendar" size={18} color="#00AEEF" />
+      <Ionicons name="calendar" size={18} color="#4A90E2" />
       <Text style={styles.label}> Date: </Text>
       <Text>{date}</Text>
     </View>
     <View style={styles.row}>
-      <Ionicons name="location" size={18} color="#00AEEF" />
+      <Ionicons name="location" size={18} color="#4A90E2" />
       <Text style={styles.label}> Location: </Text>
       <Text>{location}</Text>
     </View>
     <View style={styles.row}>
-      <Ionicons name="time" size={18} color="#00AEEF" />
+      <Ionicons name="time" size={18} color="#4A90E2" />
       <Text style={styles.label}> Time: </Text>
       <Text>{time}</Text>
     </View>
@@ -31,9 +31,11 @@ export default Descriptor;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: '#00AEEF',
-    borderRadius: 8,
+    alignSelf: 'center',
+    borderWidth: 3,
+    width: '90%',
+    borderColor: '#4A90E2',
+    borderRadius: 16,
     padding: 12,
     margin: 16,
     backgroundColor: '#fff',
