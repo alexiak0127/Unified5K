@@ -6,16 +6,18 @@ interface SearchBarProps {
   value: string;
   onSearch: (query: string) => void;
   placeholder?: string;
+  isDifferent?: boolean;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ 
   value, 
   onSearch, 
-  placeholder = "Search..." 
+  placeholder = "Search...",
+  isDifferent = false
 }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
+      <View style={isDifferent? styles.altSearchContainer : styles.searchContainer}>
         <TextInput
           style={styles.input}
           value={value}
@@ -53,6 +55,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+
+  altSearchContainer: {
+    borderWidth: 2,
+    borderRadius: 35,
+    borderColor: '#4A90E2',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20, 
+    paddingVertical: 5
   },
   
   input: {
