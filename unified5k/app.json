@@ -11,7 +11,10 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.adaptx.unified5k"
+      "bundleIdentifier": "com.adaptx.unified5k",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -38,7 +41,16 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Poppins-Medium.ttf",
+            "./assets/fonts/Poppins-SemiBold.ttf",
+            "./assets/fonts/Poppins-Regular.ttf"
+          ]
+        }
+      ],
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       [
@@ -56,7 +68,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "07392021-0dbd-462b-8b25-518d398b9f51"
+        "projectId": "a46fbd3f-823f-40d5-9749-021b1a8ce278"
       }
     }
   }

@@ -8,6 +8,7 @@
 import { Pressable, Text, View } from "react-native";
 import { Image } from 'expo-image';
 import { useState, useEffect } from 'react';
+import { transparent } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 /**
  * 
@@ -34,16 +35,19 @@ export default function ImageCarousel({imageResponse}: {imageResponse: string[]}
         <View
             style={{ // the UI is currently only intended for vertical phones, change as needed in future
                 position: 'relative',
-                height: 200,
+                height: '40%',
                 width: '100%',
                 justifyContent: "center",
                 alignItems: "center",
+                backgroundColor: 'rgba(0, 0, 0, 1)',
             }}
         >
 
             <Image // content image
                 source={imageResponse[index]}
-                style={{ width: '100%', height: '100%' }}
+                style={{ width: '100%', height: '100%', opacity: 0.5}}
+                contentFit="contain"
+                transition={250}
             />
 
             <View style={{
