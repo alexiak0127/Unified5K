@@ -43,8 +43,11 @@ export default function RootLayout() {
         <Tabs.Screen name="index" options={{ title: 'Home' }} />
         <Tabs.Screen name="donation" options={{ title: 'Donation' }} />
         <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
-      {/* // remove this after fixing the folder structure */}
+        {/* // remove this after fixing the folder structure */}
         <Tabs.Screen name="race_details" options={{ href: null }} />
+
+        {/* hidden, navigable route */}
+        <Tabs.Screen name="sponsor-tiers" options={{ href: null, headerShown: false }} />
       </Tabs>
     </PaperProvider>
 
