@@ -48,6 +48,11 @@ export default function RootLayout() {
 
         {/* hidden, navigable route */}
         <Tabs.Screen name="sponsor-tiers" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="race_details" options={{ href: null, headerShown: false }} />
+
+        {/* // comment out two lines below if you want to see navigation links to login/register on navbar */}
+        {/* <Tabs.Screen name="login" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="register" options={{ href: null, headerShown: false }} /> */}
       </Tabs>
     </PaperProvider>
 
