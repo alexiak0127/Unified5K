@@ -1,4 +1,49 @@
-# Unified5K
+# AdaptX - Unified5K Mobile Appplication
+
+Throughout 2025, our team has been developing **Unified5K**, a mobile app supporting AdaptX’s inclusive 5K race series and adaptive sports expo. The app is designed to make community fitness more accessible by helping participants discover events, track race details, and engage with sponsors and vendors. It also streamlines donations and sponsorship management, creating a stronger connection between AdaptX, its community, and corporate partners.
+
+### Description
+Unified5K is a **React Native + Expo** application for event discovery, race information, donations, and sponsor engagement. It centralizes event schedules, provides race cards with start times and locations, highlights community and corporate sponsorship opportunities, and integrates sponsor/vendor inquiries through an in-app modal. The app ensures participants, spectators, and partners have a smooth, mobile-first experience that prioritizes accessibility and community engagement.
+
+---
+
+## Description
+
+**Unified5K** is an application designed to provide information and personal stats on 5k races put on by Unified5K.  
+
+It aims to provide easy access to race information for all participants and spectators by offering:
+
+- Race cards with start times and locations  
+- Badges and personal stats for racers  
+- Donation and sponsorship information  
+
+With racers and spectators in mind, it ensures that information is easily accessible while keeping accessibility features in focus for the intended audience.
+
+---
+
+## Key Features
+
+- **Tabbed navigation**: Home, Media, Resources, Donation, Profile  
+- **Race Results & Tracking (Race Cards)**: Supports searching and filtering  
+- **Race Details**: Descriptor, image carousel, and donation progress  
+- **Donation Page – Sponsor Tiers**: Collapsible sections with summaries + “Learn more” links  
+- **Sponsor/Vendor Inquiry**: In-app modal (mailto) to contact AdaptX  
+- **User Profiles**: Includes race history and stats  
+- **Social Feed**: Blog posts  
+- **Account Authentication**: Login and account creation with email + password  
+
+---
+
+## Technical Architecture
+
+### Tech Stack
+- **Frontend**: React Native + Expo, NativeWind (Tailwind v3)  
+- **Backend**: Firebase  
+- **Database**: Firebase Firestore  
+- **Deployment**: TBD  
+- **Other Tools**: [Figma](https://www.figma.com/design/sMEvDVTnccQDVJz52j8yCF/Unified5k-Wireframes?node-id=104-833&p=f&t=VqN2u39CbGvyDc3l-0) (design), [GitHub](https://github.com/alexiak0127/Unified5K) (version control)  
+
+---
 
 ## Getting Started
 
@@ -9,8 +54,6 @@ Before starting, ensure the following are installed:
 ### Phone Setup (Dev Build)
 - **Android (physical):** https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=physical&mode=development-build  
 - **iOS (physical):** https://docs.expo.dev/get-started/set-up-your-environment/?platform=ios&device=physical&mode=development-build  
-
----
 
 ### app.json (Expo account linking tip)
 After logging into your Expo account on your local computer, check your `app.json`.  
@@ -70,6 +113,8 @@ Or alternatives:
 ```
 npx expo start --dev-client --clear
 ```
+
+---
 
 ## Directory Structure
 
@@ -139,3 +184,11 @@ unified5k/
 ├── nativewind-env.d.ts      # NativeWind env variables
 └── README.md                # Project documentation
 ```
+
+## Future Work 
+- **Authentication Improvements**: Refine sign-in and sign-up flows, including proper redirect after login/registration. Enhance registration to sync Authentication users with a Firestore Users collection for persistent profile data. 
+- **Database Integration**: Connect Firestore to fetch and display user-specific and race-related data throughout the app.  
+- **Frontend Refinements**: Polish UI/UX for smoother navigation, responsive styling, and accessibility improvements.  
+- **Deployment**: Prepare and configure production builds for both iOS and Android via Expo EAS.
+- **RunSignUp API Integration**: Complete the connection between the frontend and RunSignUp API. Replace the temporary affiliate key with OAuth-based authentication and extend functionality to fetch event-level data (e.g., donation amounts, race times) for more detailed Race Details pages. 
+
