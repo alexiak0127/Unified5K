@@ -2,22 +2,10 @@
 
 Throughout 2025, our team has been developing **Unified5K**, a mobile app supporting AdaptX’s inclusive 5K race series and adaptive sports expo. The app is designed to make community fitness more accessible by helping participants discover events, track race details, and engage with sponsors and vendors. It also streamlines donations and sponsorship management, creating a stronger connection between AdaptX, its community, and corporate partners.
 
-### Description
-Unified5K is a **React Native + Expo** application for event discovery, race information, donations, and sponsor engagement. It centralizes event schedules, provides race cards with start times and locations, highlights community and corporate sponsorship opportunities, and integrates sponsor/vendor inquiries through an in-app modal. The app ensures participants, spectators, and partners have a smooth, mobile-first experience that prioritizes accessibility and community engagement.
-
 ---
 
-## Description
-
-**Unified5K** is an application designed to provide information and personal stats on 5k races put on by Unified5K.  
-
-It aims to provide easy access to race information for all participants and spectators by offering:
-
-- Race cards with start times and locations  
-- Badges and personal stats for racers  
-- Donation and sponsorship information  
-
-With racers and spectators in mind, it ensures that information is easily accessible while keeping accessibility features in focus for the intended audience.
+### Description
+Unified5K is a **React Native + Expo** application for event discovery, race information, donations, and sponsor engagement. It centralizes event schedules, provides race cards with start times and locations, highlights community and corporate sponsorship opportunities, and integrates sponsor/vendor inquiries through an in-app modal. The app ensures participants, spectators, and partners have a smooth, mobile-first experience that prioritizes accessibility and community engagement.
 
 ---
 
